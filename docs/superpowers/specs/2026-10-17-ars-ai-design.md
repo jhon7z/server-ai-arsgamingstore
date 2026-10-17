@@ -1,7 +1,7 @@
 # Desain: ARS AI — "LLM Uncensored Tercepat untuk AI Developer"
 
 - **Tanggal**: 2026-10-17
-- **Status**: DRAFT v0.2 — menunggu jawaban owner atas §14, lalu siap direview penuh
+- **Status**: DRAFT v0.3 — jawaban owner sudah masuk; siap **direview owner** untuk approval
 - **Repo**: `jhon7z/server-ai-arsgamingstore` (GitHub) → deploy **Cloudflare Workers + Pages**
 - **Owner**: ARSGAMINGSTORE (IG/WA/Telegram) · **Builder**: agent OpenCode
 
@@ -30,20 +30,22 @@ Satu platform "ARS AI":
 **Goals**
 - G1: pembeli ARS & developer Indonesia bisa beli akses uncensored < 5 menit, tanpa ngerti crypto/English.
 - G2: margin kotor positif per transaksi sejak hari pertama (target awal 40–60%).
-- G3: launch cepat — mulai jualan (semi-manual) ke pembeli lama dalam ± 3 hari kerja; platform penuh 1–2 minggu.
+- G3: bangun **bertahap & santai** — milestone utama = "versi yang bisa di-publish"; opening ke publik keputusan owner (tanpa target tanggal keras).
 - G4: nol ops server; biaya tetap ± $0–5/bulan di awal.
 
 **Non-goals (v1)**: bikin model sendiri; GPU sendiri; aplikasi chat selesai; langganan bulanan; multi-bahasa; SLA formal.
 
 **Anti-goals**: jangan janji yang tak terukur ("tercepat" wajib ada angka/label tier yang bisa dibuktiin); jangan bocorin identitas upstream (master key & nama provider = server-side only); jangan layani konten ilegal (AUP + blocklist minimal); jangan single point of failure di satu upstream (selalu ada plan B).
 
-## 4. Constraint yang sudah diputuskan owner
+## 4. Constraint & keputusan owner
 
 - **Deploy**: Cloudflare Workers & Pages; source di GitHub `jhon7z/server-ai-arsgamingstore`.
 - **Bentuk usaha**: reseller akses LLM uncensored (beli wholesale, jual retail) — bukan training model sendiri (di awal).
 - **Target awal**: pembeli existing ARS + developer Indonesia.
 - **Harga**: rupiah, paket kecil-kecil gaya topup game.
-- **Brand**: sub-brand di bawah ARS (usulan nama "ARS AI" — final nunggu owner).
+- **Brand**: **ARS AI** (sub-brand ARS) — tagline utama: *"Uncensored LLM tercepat untuk AI Developer"*.
+- **Konten**: diizinkan (termasuk dewasa yang legal) dengan gate umur + "gunakan dengan bijak"; ilegal dilarang keras (lihat §9).
+- **Timing**: santai — "training web" bareng, tiap step dijelasin; opening setelah versi publishable dianggap layak oleh owner.
 
 ## 5. Produk & harga (DEFAULT USULAN — angka final = owner)
 
@@ -56,6 +58,7 @@ Unit: **token** (input + output dihitung). Buat gambaran: 1 balasan chat medium 
 | Fast | GLM 5.3 Flash Uncensored (NanoGPT), gemma-4-26B-A4B (Featherless) | janji "tercepat" — kasus utama agent/chat |
 | Flagship | Dolphin 72B, Llama 3.3 70B abliterated (Unfil) | kualitas lebih tinggi |
 | (M2) Fiction | Mistral Small 3.2 abliterated / model RP | buat bot karakter/roleplay |
+| (M2) Bahasa | Qwen/Gemma — model global yang jago Bahasa Indonesia | ditandai di docs biar gampang dipilih |
 
 **Paket (default usulan):**
 
@@ -74,6 +77,8 @@ Asumsi: FX Rp 16.500/$, campuran input:output 1:1, harga upstream per 2026-10-17
 **Aturan kuota (keputusan builder):** tiap pembelian = satu *bucket* kuota yang terikat tier-nya (kuota Fast hanya bisa dipakai di model Fast; Flagship di Flagship). Bucket se-tier bisa menumpuk (sisa dijumlahkan). Kuota **tidak expired** — sisa kuota yang tak terpakai = margin ekstra (breakage); kalau owner mau expiry, tinggal bilang.
 
 ## 6. Supply (hulu) & due diligence
+
+**Semua model = open-weight global** (Llama, Mistral, Qwen, Gemma, GLM) yang disajikan lewat provider global (NanoGPT, Unfil, Featherless, dll) — bisa diakses dari mana saja termasuk Indonesia, via API OpenAI-compatible. LLM "resmi Indonesia" (Sahabat-AI dkk) tidak dipakai: kebanyakan di-fine-tune dari base global yang sama tapi sudah *aligned* (bukan bahan uncensored) dan tidak ada jalur wholesale buat reseller. Bonus: model global yang kita pakai (Qwen, Gemma) sudah kuat Bahasa Indonesia.
 
 Kandidat temuan 2026-10-17:
 
@@ -130,15 +135,16 @@ Detail kunci:
 
 ## 9. Legal & AUP
 
-- **AUP publik**: dilarang konten ilegal (mengacu hukum Indonesia & umum); pelanggaran = revoke tanpa refund. "Uncensored" = model open-weight tanpa lapisan filter vendor — bukan izin bebas.
+- **Posisi konten (DIPUTUSKAN owner)**: diizinkan, termasuk dewasa yang legal, dengan gate umur + pesan "gunakan dengan bijak"; **ilegal dilarang keras** — pelanggaran = revoke tanpa refund. Gate umur diset **18+** di dokumen/site (standar global & lebih aman buat payment; owner awalnya bilang 17+ — bisa diganti kapan saja).
+- **AUP publik**: larangan konten ilegal (mengacu hukum Indonesia & umum). "Uncensored" = model open-weight tanpa lapisan filter vendor — bukan izin bebas.
 - **Terms + Privacy**: data minimal (email/No WA opsional); log pemakaian disimpan X hari (default usulan 30–90, owner putuskan).
-- **Posisi konten (MENUNGGU keputusan owner — rekomendasi builder)**: platform tidak memfilter isi (uncensored); AUP tegas melarang konten ilegal; konten dewasa legal dibolehkan dengan gate 18+. Enforcement reaktif: laporan abuse + monitoring metadata + revoke/ban — **isi prompt tidak disimpan** secara default.
+- **Enforcement reaktif**: laporan abuse + monitoring metadata + revoke/ban — **isi prompt tidak disimpan** secara default.
 - Risk note: jual akses API legal; risiko utama ada di konten user + kebijakan pembayaran.
 
-## 10. Roadmap
+## 10. Roadmap (santai, step-by-step)
 
-- **M0 — "Boleh Jualan" (± 3 hari)**: Gateway Worker (auth/quota/streaming/1–2 model), D1, admin panel minimal (order + issue key), landing 1 halaman + pricing, order via WA. Target: transaksi pertama dari pembeli lama + trial gratis.
-- **M1 — "Platform Nyala" (1–2 minggu)**: Pages penuh (docs, playground, dashboard), order otomatis + auto-issue + delivery WA/TG/email, landing di-polish "secanggih mungkin" (gaya ARS), daftar model lengkap.
+- **M0 — "Fondasi & Training"**: setup repo + project Cloudflare; halaman pertama dipublish (biar ada kemenangan cepat & lu bisa lihat prosesnya); gateway dasar (auth/quota/streaming/1–2 model); admin panel minimal. Mode belajar: tiap step dijelasin, lu bisa tanya & ikut ngecek.
+- **M1 — "Versi Publishable"**: web penuh (landing/docs/playground/dashboard), order otomatis + auto-issue + delivery WA/TG/email, polish "secanggih mungkin" (gaya ARS). → **opening = keputusan owner** setelah ini (jualan ke pembeli lama bisa lebih awal kalau owner mau).
 - **M2 — "Growth"**: langganan bulanan, bundle topup game + token bonus, referral/komunitas, konten SEO ID ("LLM uncensored murah", "API uncensored Indonesia"), panduan integrasi tool populer.
 - **M3 — "Infra Sendiri"**: GPU sewa + vLLM (model abliterated sendiri) → margin naik, klaim "tercepat" makin tajam, ketergantungan upstream turun.
 
@@ -168,16 +174,17 @@ Detail kunci:
 - Identitas: M0 tanpa akun; M1 magic link email (WA OTP = nanti).
 - **Kuota per-tier bucket, tanpa expiry.**
 - Scope M1: delivery outbound + deep link saja — bot WA inbound (order otomatis penuh) di luar scope v1. Email sender butuh domain final; TG bot opsional kalau owner sudah punya.
+- Nama produk **"ARS AI"** (bukan "ARS AI Developer" — kata "Developer" jadi bagian tagline biar brand tetap pendek & lentur).
+- Subdomain rekomendasi: **`ai.<domain>`** untuk web + **`api.<domain>`** untuk gateway (dua-duanya gratis di Cloudflare). Final menunggu konfirmasi domain mana yang dimiliki.
+- Gate umur dibakukan **18+** (dari owner "17+").
 
 ## 14. Open questions (buat owner)
 
-1. **Garis konten & umur (paling penting)**: izinkan konten dewasa legal dengan gate 18+, atau posisikan "uncensored untuk kerjaan teknis" saja? Rekomendasi builder: izinkan yang legal, tolak yang ilegal.
-2. **Modal & metode bayar wholesale**: siap isi saldo awal upstream (kisaran $10–50)? Lewat kartu internasional atau crypto (USDT)?
-3. **Nama & domain final** (usulan "ARS AI") — dibutuhkan buat email sender, docs, dan custom domain Cloudflare.
-4. **Timing soft launch** (target minggu ini?).
-5. Setelah due diligence: lanjut dengan upstream terpilih atau pindah plan B (self-host/GPU)?
-6. Lama penyimpanan log pemakaian (usulan default 30–90 hari).
+1. **Domain**: mana yang lu punya — `arsgaming.web.id` saja, atau `arsgaming.store` juga? (biar gua kunci subdomain final)
+2. **Metode bayar wholesale**: buat topup saldo provider nanti, lu punya opsi apa — kartu internasional (Visa/MC), crypto (USDT), atau lainnya?
+3. **Lama simpan log pemakaian** (usulan default 30–90 hari; metadata saja).
+4. Hasil DD provider: kalau ada yang menolak jual-ulang → gua bawa opsinya (ganti provider / plan B) buat lu putuskan.
 
 ## 15. Left to builder
 
-Skema D1 lengkap + migrations; implementasi Worker & halaman; desain UI (gaya ARS); copywriting; test plan (streaming, quota, revoke, load dasar); setup project Cloudflare & GitHub Actions; panduan integrasi; hardening.
+Skema D1 lengkap + migrations; implementasi Worker & halaman; desain UI (gaya ARS); copywriting; test plan (streaming, quota, revoke, load dasar); setup project Cloudflare & GitHub Actions; panduan integrasi; hardening; **due diligence izin jual-ulang provider (dengan bukti)**.
