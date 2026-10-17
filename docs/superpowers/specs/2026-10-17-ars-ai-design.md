@@ -73,7 +73,7 @@ Unit: **token** (input + output dihitung). Buat gambaran: 1 balasan chat medium 
 | Flagship Standar | 1.000.000 | Rp 21.000 | ± Rp 10.700 | ± 49% |
 | Flagship Gede | 3.000.000 | Rp 55.000 | ± Rp 32.200 | ± 41% |
 
-Asumsi: FX Rp 16.500/$, campuran input:output 1:1, harga upstream per 2026-10-17. Kuota habis → beli lagi (repeat natural). M2: langganan bulanan + bundle "topup game + token bonus".
+Asumsi: FX Rp 16.500/$, campuran input:output 1:1, harga upstream per 2026-10-17. ⚠️ **Kurs spot 17 Okt ≈ Rp 18.000/$** → biaya naik ±9%, margin tabel turun ±3–4 poin; **harga final dikunci di M0** setelah jalur sumber dipilih. Kuota habis → beli lagi (repeat natural). M2: langganan bulanan + bundle "topup game + token bonus".
 
 **Aturan kuota (keputusan builder):** tiap pembelian = satu *bucket* kuota yang terikat tier-nya (kuota Fast hanya bisa dipakai di model Fast; Flagship di Flagship). Bucket se-tier bisa menumpuk (sisa dijumlahkan). Kuota **tidak expired** — sisa kuota yang tak terpakai = margin ekstra (breakage); kalau owner mau expiry, tinggal bilang.
 
@@ -108,6 +108,12 @@ Asumsi: FX Rp 16.500/$, campuran input:output 1:1, harga upstream per 2026-10-17
 - **Fast tier → NanoGPT pay-as-you-go** — jalur paling aman: izin resale eksplisit, streaming + tools terbukti, topup crypto murah. **Link integrasi: `https://api.nano-gpt.com/api/v1`** (OpenAI-compatible; docs `docs.nano-gpt.com` — diverifikasi 2026-10-17). **Partner Program** mereka (white-label: NanoGPT urus billing di belakang) dievaluasi di M0 sebagai opsi percepatan.
 - **Flagship tier → kandidat NanoGPT dulu** (Abliterated Large V2 / Qwen 3.8 27B Uncensored); provider lain masuk setelah izin tertulis.
 - **Aksi lanjutan (builder):** (1) email partner@nano-gpt.com + support: scope resale & Partner Program; (2) minta izin resale tertulis dari Unfil / NSFW AI API / abliteration.ai bila mau dipakai; (3) konfirmasi Featherless: padanan plan "Scale" saat ini + dukungan streaming; (4) arsipkan semua bukti di `docs/research/`.
+
+**Recon harga sumber GLM Flash (2026-10-17, live — detail: `docs/research/2026-10-17-glm-flash-cost-recon.md`):** teka-teki harga kompetitor terjawab — dia jual Rp 5–7 rb/M ⇒ biaya dia ≤ ~Rp 3 rb/M, artinya dia **bukan** pakai finetune uncensored retail ($0.50/M) melainkan base model murah (+layer sendiri) atau self-host bobot abliterated. Jalur termurah terverifikasi (base `z-ai/glm-5.3-flash`): **DeepInfra promo $0.075/$0.25** (≈ Rp 2,9 rb/M @1:1), **OrcaRouter $0.07–0.075/$0.25** (organisasi penerbit bobot *uncensored* NVFP4 — potensi one-stop, cek ToS), Bitdeer ~$0.07/$0.25 (⚠ belum terverifikasi), Novita promo ~$0.084/$0.28. Model abliterated asli: NanoGPT $0.20/$0.80 (≈ Rp 9 rb/M → kalah harga jalanan; jadikan tier **premium**/cadangan; sedang "Unavailable" ⚠ — recheck), Routeway $0.35/$1.40.
+
+**Catatan ToS (penting):** OpenRouter **melarang resale API** (skip); DeepInfra perlu Service Order (kontak sales); Featherless → resale **No** di Chat/Dev (Business nego) — *revisi dari DD awal*; NanoGPT tetap satu-satunya izin eksplisit (paygo).
+
+**Kesimpulan strategi:** (1) Fast tier = jalur base murah (negosiasi resale: DeepInfra / OrcaRouter / Bitdeer / Novita) → bisa tembak Rp 5–7 rb/M dengan margin 40–58%; (2) tier premium = abliterated asli (premium pricing); (3) **self-host bobot abliterated (open, base MIT) = jalur termurah & bebas-ToS** → evaluasi akselerasi M3; (4) M0 = tes kualitas praktis (base+system-prompt vs abliterated) sebelum kunci komposisi tier.
 
 **Fallback** kalau izin provider tersendat: (a) supplier lain dengan izin eksplisit; (b) sewa GPU + vLLM host model abliterated sendiri (M3 dipercepat).
 
@@ -183,7 +189,7 @@ Detail kunci:
 ## 13. Keputusan yang diambil builder (buat dicek owner)
 
 - Gateway **custom di Workers + D1** (LiteLLM tidak bisa jalan di Workers — tidak dipakai).
-- **Supply utama = NanoGPT pay-as-you-go** — izin resale eksplisit di ToS (subscription bukan untuk resale); Partner Program mereka dievaluasi di M0.
+- **Supply utama**: NanoGPT pay-as-you-go (izin resale eksplisit; Partner Program dievaluasi di M0) + **jalur murah untuk Fast tier** (DeepInfra / OrcaRouter / Bitdeer / Novita — nego resale; detail recon di §6).
 - **v1 manual-confirm** (tanpa integrasi payment gateway dulu; nyusul di M1).
 - **Alias model publik**; identitas upstream internal saja.
 - Log pemakaian disimpan (default 30–90 hari; owner bisa ubah) — metadata saja, isi prompt tidak disimpan.
