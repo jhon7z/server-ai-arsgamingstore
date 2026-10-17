@@ -149,6 +149,14 @@ Detail kunci:
 - **Admin manual confirm**: state machine order (created → paid → issued → expired/refunded), idempotent, audit-logged.
 - **CF limits** (verifikasi saat build): Workers free ± 100k req/hari; paid $5 utk 10jt req; D1 free 5 GB. Cukup untuk fase awal.
 
+**Daftar integrasi eksternal (peta — status 2026-10-17):**
+- **Upstream token**: NanoGPT `https://api.nano-gpt.com/api/v1` ✅ (izin resale eksplisit; tier premium/uncensored) · jalur murah Fast tier: DeepInfra / OrcaRouter / Bitdeer / Novita ⟳ (lagi nego izin resale) · self-host bobot abliterated (HuggingFace `orcarouter/GLM-5.3-Flash-Uncensored-NVFP4`) ⏳ M3.
+- **Deploy**: GitHub (source `jhon7z/server-ai-arsgamingstore`) → CF Workers (gateway `api.arsgaming.web.id`) + CF Pages (web `ai.arsgaming.web.id`); DNS `arsgaming.web.id` ✅; D1 + KV internal.
+- **Bayar**: M1 manual QRIS/e-wallet → otomatis: kandidat Midtrans / Xendit / Tripay ⏳.
+- **Email** (login magic link + kirim key): kandidat Resend ⏳.
+- **Kanal order/support**: WA existing ✅ (+ TG bot opsional ⏳).
+- **Sisi pembeli** (tools mereka connect ke kita via `api.arsgaming.web.id/v1`): OpenAI SDK (Py/JS), Cursor, Cline, Roo, Hermes, 9Router, SillyTavern.
+
 ## 8. Pembayaran & fulfillment
 
 - **v1 — manual-confirm** (persis alur toko sekarang): order dari web/WA → instruksi bayar QRIS/e-wallet → admin klik "Lunas" → key otomatis di-generate, tampil & terkirim. Tanpa integrasi payment gateway dulu.
