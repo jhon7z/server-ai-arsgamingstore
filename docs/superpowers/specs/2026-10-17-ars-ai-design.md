@@ -100,7 +100,7 @@ Asumsi: FX Rp 16.500/$, campuran input:output 1:1, harga upstream per 2026-10-17
 
 **Fallback** kalau izin provider tersendat: (a) supplier lain dengan izin eksplisit; (b) sewa GPU + vLLM host model abliterated sendiri (M3 dipercepat).
 
-Funding wholesale: kartu (NanoGPT dari $1) atau crypto (NanoGPT dari $0.10; NSFW AI API USDT/USDC $20–500). Currency risk: harga kita rupiah, biaya dolar → buffer di margin + review harga berkala.
+Funding wholesale: **tanpa langganan bulanan** — subscription NanoGPT justru *dilarang* untuk resale (ToS mereka: subscription = personal/non-commercial; jalur wajibnya pay-as-you-go). Topup mulai **$0.10 (crypto)** / **$1 (kartu)**; modal tes awal cukup **~$1–5 (Rp 20–80 rb)**, belanja saldo berikutnya dari uang penjualan. Fixed cost kita **Rp 0/bulan** (Cloudflare/GitHub free, domain sudah ada). Jalur lokal tanpa kartu internasional: beli USDT via exchange Indonesia (Indodax/Pintu) dari m-banking. Currency risk: harga kita rupiah, biaya dolar → buffer di margin + review harga berkala.
 
 ## 7. Arsitektur
 
