@@ -77,6 +77,15 @@ Asumsi: FX Rp 16.500/$, campuran input:output 1:1, harga upstream per 2026-10-17
 
 **Aturan kuota (keputusan builder):** tiap pembelian = satu *bucket* kuota yang terikat tier-nya (kuota Fast hanya bisa dipakai di model Fast; Flagship di Flagship). Bucket se-tier bisa menumpuk (sisa dijumlahkan). Kuota **tidak expired** — sisa kuota yang tak terpakai = margin ekstra (breakage); kalau owner mau expiry, tinggal bilang.
 
+**Aturan margin (keputusan builder — review berkala):**
+- Harga jual = **2–2.5× biaya token** untuk paket kecil, **1.6–1.8×** untuk paket besar → target **gross 40–60%**.
+- Buffer **~15%** sudah include di harga (kurs USD/IDR, retry/error upstream, kebocoran trial).
+- **Margin floor 35%**: kalau kurs / harga upstream berubah dan bikin margin < 35% → harga direview.
+- **Breakage** (sisa kuota tak terpakai) = margin bonus — kuota tidak expired.
+- Promo = **bonus token**, bukan potong harga (jaga anchor harga).
+- Admin panel menampilkan **margin realisasi** (revenue vs biaya token aktual) per bulan.
+- Review bulanan: kurs, harga upstream, biaya aktual vs asumsi.
+
 ## 6. Supply (hulu) & due diligence
 
 **Semua model = open-weight global** (Llama, Mistral, Qwen, Gemma, GLM) yang disajikan lewat provider global (NanoGPT, Unfil, Featherless, dll) — bisa diakses dari mana saja termasuk Indonesia, via API OpenAI-compatible. LLM "resmi Indonesia" (Sahabat-AI dkk) tidak dipakai: kebanyakan di-fine-tune dari base global yang sama tapi sudah *aligned* (bukan bahan uncensored) dan tidak ada jalur wholesale buat reseller. Bonus: model global yang kita pakai (Qwen, Gemma) sudah kuat Bahasa Indonesia.
