@@ -40,6 +40,7 @@ Satu platform "ARS AI":
 ## 4. Constraint & keputusan owner
 
 - **Deploy**: Cloudflare Workers & Pages; source di GitHub `jhon7z/server-ai-arsgamingstore`.
+- **Domain**: `arsgaming.web.id` (aktif di Cloudflare) → web di `ai.arsgaming.web.id`, gateway di `api.arsgaming.web.id`.
 - **Bentuk usaha**: reseller akses LLM uncensored (beli wholesale, jual retail) — bukan training model sendiri (di awal).
 - **Target awal**: pembeli existing ARS + developer Indonesia.
 - **Harga**: rupiah, paket kecil-kecil gaya topup game.
@@ -93,7 +94,7 @@ Asumsi: FX Rp 16.500/$, campuran input:output 1:1, harga upstream per 2026-10-17
 **Harga model (kandidat):** NanoGPT — GLM 5.3 Flash Uncensored $0.20/$0.80, Qwen 3.8 27B Uncensored $1/$3, Abliterated Large V2 $3/$5. Unfil — Dolphin 72B $0.6/$0.7, Llama 70B abliterated $1.1/$1.2, Hermes 405B $1.2/$1.2. NSFW AI API — $0.25/$1.00 (1 model). Featherless — flat (gemma-4-26B-A4B dll).
 
 **Keputusan supply (revisi):**
-- **Fast tier → NanoGPT pay-as-you-go** — jalur paling aman: izin resale eksplisit, streaming + tools terbukti, topup crypto murah. **Partner Program** mereka (white-label: NanoGPT urus billing di belakang) dievaluasi di M0 sebagai opsi percepatan.
+- **Fast tier → NanoGPT pay-as-you-go** — jalur paling aman: izin resale eksplisit, streaming + tools terbukti, topup crypto murah. **Link integrasi: `https://api.nano-gpt.com/api/v1`** (OpenAI-compatible; docs `docs.nano-gpt.com` — diverifikasi 2026-10-17). **Partner Program** mereka (white-label: NanoGPT urus billing di belakang) dievaluasi di M0 sebagai opsi percepatan.
 - **Flagship tier → kandidat NanoGPT dulu** (Abliterated Large V2 / Qwen 3.8 27B Uncensored); provider lain masuk setelah izin tertulis.
 - **Aksi lanjutan (builder):** (1) email partner@nano-gpt.com + support: scope resale & Partner Program; (2) minta izin resale tertulis dari Unfil / NSFW AI API / abliteration.ai bila mau dipakai; (3) konfirmasi Featherless: padanan plan "Scale" saat ini + dukungan streaming; (4) arsipkan semua bukti di `docs/research/`.
 
@@ -180,15 +181,16 @@ Detail kunci:
 - **Kuota per-tier bucket, tanpa expiry.**
 - Scope M1: delivery outbound + deep link saja — bot WA inbound (order otomatis penuh) di luar scope v1. Email sender butuh domain final; TG bot opsional kalau owner sudah punya.
 - Nama produk **"ARS AI"** (bukan "ARS AI Developer" — kata "Developer" jadi bagian tagline biar brand tetap pendek & lentur).
-- Subdomain rekomendasi: **`ai.<domain>`** untuk web + **`api.<domain>`** untuk gateway (dua-duanya gratis di Cloudflare). Final menunggu konfirmasi domain mana yang dimiliki.
+- Subdomain: **`ai.arsgaming.web.id`** (web) + **`api.arsgaming.web.id`** (gateway) — domain final, sudah aktif di Cloudflare.
 - Gate umur dibakukan **18+** (dari owner "17+").
 
 ## 14. Open questions (buat owner)
 
-1. **Domain**: mana yang lu punya — `arsgaming.web.id` saja, atau `arsgaming.store` juga? (biar gua kunci subdomain final)
-2. **Metode bayar wholesale**: buat topup saldo provider nanti, lu punya opsi apa — kartu internasional (Visa/MC), crypto (USDT), atau lainnya?
-3. **Lama simpan log pemakaian** (usulan default 30–90 hari; metadata saja).
-4. **DD provider: SELESAI** — jalur utama aman (NanoGPT paygo, izin resale eksplisit). Sisa aksi builder: izin tertulis provider backup + konfirmasi Featherless (nggak blocking).
+1. **Metode bayar wholesale**: buat topup saldo provider nanti, lu punya opsi apa — kartu internasional (Visa/MC), crypto (USDT), atau lainnya?
+2. **Lama simpan log pemakaian** (usulan default 30–90 hari; metadata saja).
+3. **Nama brand**: default **ARS AI** (rekomendasi builder); opsi **ARS AI DEV** kalau lu mau — tinggal pilih.
+
+**Sudah selesai:** Domain ✓ (`ai.arsgaming.web.id` + `api.arsgaming.web.id`). DD provider ✓ (NanoGPT paygo — izin resale eksplisit; aksi lanjutan: izin tertulis provider backup + konfirmasi Featherless, tidak blocking).
 
 ## 15. Left to builder
 
