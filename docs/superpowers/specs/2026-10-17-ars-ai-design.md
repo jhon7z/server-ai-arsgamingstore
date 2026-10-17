@@ -1,7 +1,7 @@
 # Desain: ARS AI — "LLM Uncensored Tercepat untuk AI Developer"
 
 - **Tanggal**: 2026-10-17
-- **Status**: DRAFT v0.3 — jawaban owner sudah masuk; siap **direview owner** untuk approval
+- **Status**: DRAFT v0.4 — DD supplier selesai (izin jual-ulang ✓); siap **direview owner** untuk approval
 - **Repo**: `jhon7z/server-ai-arsgamingstore` (GitHub) → deploy **Cloudflare Workers + Pages**
 - **Owner**: ARSGAMINGSTORE (IG/WA/Telegram) · **Builder**: agent OpenCode
 
@@ -80,22 +80,26 @@ Asumsi: FX Rp 16.500/$, campuran input:output 1:1, harga upstream per 2026-10-17
 
 **Semua model = open-weight global** (Llama, Mistral, Qwen, Gemma, GLM) yang disajikan lewat provider global (NanoGPT, Unfil, Featherless, dll) — bisa diakses dari mana saja termasuk Indonesia, via API OpenAI-compatible. LLM "resmi Indonesia" (Sahabat-AI dkk) tidak dipakai: kebanyakan di-fine-tune dari base global yang sama tapi sudah *aligned* (bukan bahan uncensored) dan tidak ada jalur wholesale buat reseller. Bonus: model global yang kita pakai (Qwen, Gemma) sudah kuat Bahasa Indonesia.
 
-Kandidat temuan 2026-10-17:
+**Hasil due diligence (2026-10-17 — dicek langsung ke ToS/site masing-masing; kutipan & bukti lengkap di `docs/research/2026-10-17-supplier-dd.md`):**
 
-- **NanoGPT** — GLM 5.3 Flash Uncensored $0.20/$0.80; Qwen 3.8 27B Uncensored $1/$3; Abliterated Large V2 $3/$5; topup crypto dari $0.10. → kandidat utama tier **Fast**.
-- **Unfil AI** — Dolphin 72B $0.6/$0.7; Llama 3.3 70B abliterated $1.1/$1.2; Hermes 405B $1.2/$1.2. Eksplisit mengharapkan customer bikin layer sendiri di atasnya. → kandidat tier **Flagship**.
-- **NSFW AI API** — $0.25/$1.00; satu model uncensored di infra sendiri; kredit prabayar + bonus topup. → alternatif/backup.
-- **Featherless** — flat rate, 25rb+ model, no-log; gemma-4-26B-A4B (MoE cepat, tool calling, refusal 0.7%). → alternatif tier Fast.
+| Provider | Izin jual-ulang | Logging prompt | OpenAI-compat | Bayar |
+|---|---|---|---|---|
+| **NanoGPT** | ✅ **EKSPLISIT** di pay-as-you-go ("Reselling access to our Services as part of your own service offerings"); subscription TIDAK boleh untuk resale; ada **Partner Program** resmi | Default tidak menyimpan prompt; tidak training (log opt-in 1–30 hari) | ✅ terverifikasi: SSE + tools | Kartu dari $1; crypto dari $0.10 |
+| **Featherless** | ✅ hanya plan **Scale/business** ("including inference resale"); plan Chat dilarang | Tidak log chat/prompt/completion | ✅ OpenAI-compat; tools native hanya Kimi-K2 & Qwen 3; ⚠️ streaming belum terdokumentasi | Kartu (Stripe); $50+/bulan |
+| **NSFW AI API** | ⚠️ commercial ✅; resale tidak dibahas → minta izin tertulis | Tidak untuk training; klaim no-log tidak eksplisit | ✅ lengkap (SSE + tools + 100k ctx) | **Crypto only** $20–500 (USDT/USDC); bonus +5/10/15% |
+| **Unfil AI** | ⚠️ business use implied; resale tidak published → kontak support; situs belum kelar (docs "coming soon") | Tidak disimpan setelah diproses; tidak training | ⚠️ tidak bisa diverifikasi | Kartu/wallet/crypto; min tidak dipublish |
+| **abliteration.ai** | ⚠️ ToS tidak menyebut resale → kontak; zero-retention paling kuat | ZDR default; telemetry saja | ✅ (tanpa `response_format`) | Stripe; plan $20/50/200 + prepaid |
 
-**PRA-LAUNCH GATE (wajib, sebelum jualan pertama — dijalankan builder, hasil dibawa ke owner):**
-1. Konfirmasi izin jual-ulang per provider (baca ToS / hubungi support; simpan buktinya).
-2. Pastikan kebijakan data (apakah prompt di-log/ditrain; disclose apa adanya di Privacy).
-3. Cek limit rate akun wholesale kita (headroom buat burst pembeli).
-4. Verifikasi kompatibilitas API upstream: OpenAI-compatible, streaming SSE, tool calling. Yang kurang → kita tulis adapter sendiri (dicatat di docs internal).
+**Harga model (kandidat):** NanoGPT — GLM 5.3 Flash Uncensored $0.20/$0.80, Qwen 3.8 27B Uncensored $1/$3, Abliterated Large V2 $3/$5. Unfil — Dolphin 72B $0.6/$0.7, Llama 70B abliterated $1.1/$1.2, Hermes 405B $1.2/$1.2. NSFW AI API — $0.25/$1.00 (1 model). Featherless — flat (gemma-4-26B-A4B dll).
 
-**Fallback** kalau izin jual-ulang tidak ada: (a) supplier enterprise yang eksplisit mengizinkan (mis. abliteration.ai); (b) sewa GPU + vLLM host model abliterated sendiri (biaya naik, kontrol penuh — masuk M3).
+**Keputusan supply (revisi):**
+- **Fast tier → NanoGPT pay-as-you-go** — jalur paling aman: izin resale eksplisit, streaming + tools terbukti, topup crypto murah. **Partner Program** mereka (white-label: NanoGPT urus billing di belakang) dievaluasi di M0 sebagai opsi percepatan.
+- **Flagship tier → kandidat NanoGPT dulu** (Abliterated Large V2 / Qwen 3.8 27B Uncensored); provider lain masuk setelah izin tertulis.
+- **Aksi lanjutan (builder):** (1) email partner@nano-gpt.com + support: scope resale & Partner Program; (2) minta izin resale tertulis dari Unfil / NSFW AI API / abliteration.ai bila mau dipakai; (3) konfirmasi Featherless: padanan plan "Scale" saat ini + dukungan streaming; (4) arsipkan semua bukti di `docs/research/`.
 
-Funding wholesale: kartu/crypto. Currency risk: harga kita rupiah, biaya dolar → buffer di margin + review harga berkala.
+**Fallback** kalau izin provider tersendat: (a) supplier lain dengan izin eksplisit; (b) sewa GPU + vLLM host model abliterated sendiri (M3 dipercepat).
+
+Funding wholesale: kartu (NanoGPT dari $1) atau crypto (NanoGPT dari $0.10; NSFW AI API USDT/USDC $20–500). Currency risk: harga kita rupiah, biaya dolar → buffer di margin + review harga berkala.
 
 ## 7. Arsitektur
 
@@ -167,6 +171,7 @@ Detail kunci:
 ## 13. Keputusan yang diambil builder (buat dicek owner)
 
 - Gateway **custom di Workers + D1** (LiteLLM tidak bisa jalan di Workers — tidak dipakai).
+- **Supply utama = NanoGPT pay-as-you-go** — izin resale eksplisit di ToS (subscription bukan untuk resale); Partner Program mereka dievaluasi di M0.
 - **v1 manual-confirm** (tanpa integrasi payment gateway dulu; nyusul di M1).
 - **Alias model publik**; identitas upstream internal saja.
 - Log pemakaian disimpan (default 30–90 hari; owner bisa ubah) — metadata saja, isi prompt tidak disimpan.
@@ -183,7 +188,7 @@ Detail kunci:
 1. **Domain**: mana yang lu punya — `arsgaming.web.id` saja, atau `arsgaming.store` juga? (biar gua kunci subdomain final)
 2. **Metode bayar wholesale**: buat topup saldo provider nanti, lu punya opsi apa — kartu internasional (Visa/MC), crypto (USDT), atau lainnya?
 3. **Lama simpan log pemakaian** (usulan default 30–90 hari; metadata saja).
-4. Hasil DD provider: kalau ada yang menolak jual-ulang → gua bawa opsinya (ganti provider / plan B) buat lu putuskan.
+4. **DD provider: SELESAI** — jalur utama aman (NanoGPT paygo, izin resale eksplisit). Sisa aksi builder: izin tertulis provider backup + konfirmasi Featherless (nggak blocking).
 
 ## 15. Left to builder
 
