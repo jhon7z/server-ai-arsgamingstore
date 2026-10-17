@@ -86,6 +86,8 @@ Asumsi: FX Rp 16.500/$, campuran input:output 1:1, harga upstream per 2026-10-17
 - Admin panel menampilkan **margin realisasi** (revenue vs biaya token aktual) per bulan.
 - Review bulanan: kurs, harga upstream, biaya aktual vs asumsi.
 
+**Intel pasar (2026-10-17):** kompetitor **ArxPays** (`arxpay.my.id`) jual single-model `glm-5.3-flash-uncensored` lewat gateway sendiri — stack mirip rencana kita (Cloudflare + web playground + QRIS otomatis + bot Telegram + akun OTP). Harga jalanan: Rp 7rb/1M → ~Rp 4.950/M @200M; kuota no-expiry. Bukti trafik publik: 33+ order lunas & Rp 873rb volume/24 jam, 148M token terdistribusi → **demand tervalidasi**. Implikasi: (a) harga Fast wajib mendekati Rp 5–7rb/M → butuh sumber GLM Flash ≤ ~Rp 3rb/M buat margin 40%+ (recon berjalan); (b) diferensiasi kita: multi-model, docs/dashboard, integrasi store ARS, tanpa single point of failure; (c) UX yang layak diadaptasi: playground gratis, cek kuota, feed order live, snippet setup Cursor/Cline, pola giveaway/bansos.
+
 ## 6. Supply (hulu) & due diligence
 
 **Semua model = open-weight global** (Llama, Mistral, Qwen, Gemma, GLM) yang disajikan lewat provider global (NanoGPT, Unfil, Featherless, dll) — bisa diakses dari mana saja termasuk Indonesia, via API OpenAI-compatible. LLM "resmi Indonesia" (Sahabat-AI dkk) tidak dipakai: kebanyakan di-fine-tune dari base global yang sama tapi sudah *aligned* (bukan bahan uncensored) dan tidak ada jalur wholesale buat reseller. Bonus: model global yang kita pakai (Qwen, Gemma) sudah kuat Bahasa Indonesia.
