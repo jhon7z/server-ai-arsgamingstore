@@ -1,7 +1,7 @@
 # Desain: ARS AI — "LLM Uncensored Tercepat untuk AI Developer"
 
 - **Tanggal**: 2026-10-17
-- **Status**: DRAFT v0.4 — DD supplier selesai (izin jual-ulang ✓); siap **direview owner** untuk approval
+- **Status**: DRAFT v0.5 — keputusan owner lengkap (nama, domain, konten, timing); siap **approval** owner
 - **Repo**: `jhon7z/server-ai-arsgamingstore` (GitHub) → deploy **Cloudflare Workers + Pages**
 - **Owner**: ARSGAMINGSTORE (IG/WA/Telegram) · **Builder**: agent OpenCode
 
@@ -44,7 +44,7 @@ Satu platform "ARS AI":
 - **Bentuk usaha**: reseller akses LLM uncensored (beli wholesale, jual retail) — bukan training model sendiri (di awal).
 - **Target awal**: pembeli existing ARS + developer Indonesia.
 - **Harga**: rupiah, paket kecil-kecil gaya topup game.
-- **Brand**: **ARS AI** (sub-brand ARS) — tagline utama: *"Uncensored LLM tercepat untuk AI Developer"*.
+- **Brand**: **ARS AI** — tagline utama (final): *"Uncensored LLM Tercepat untuk AI Developer"* — versi English: *"The Fastest Uncensored LLM API for AI Developers"*.
 - **Konten**: diizinkan (termasuk dewasa yang legal) dengan gate umur + "gunakan dengan bijak"; ilegal dilarang keras (lihat §9).
 - **Timing**: santai — "training web" bareng, tiap step dijelasin; opening setelah versi publishable dianggap layak oleh owner.
 
@@ -180,7 +180,7 @@ Detail kunci:
 - Identitas: M0 tanpa akun; M1 magic link email (WA OTP = nanti).
 - **Kuota per-tier bucket, tanpa expiry.**
 - Scope M1: delivery outbound + deep link saja — bot WA inbound (order otomatis penuh) di luar scope v1. Email sender butuh domain final; TG bot opsional kalau owner sudah punya.
-- Nama produk **"ARS AI"** (bukan "ARS AI Developer" — kata "Developer" jadi bagian tagline biar brand tetap pendek & lentur).
+- Nama produk final: **"ARS AI"** — tagline **"Uncensored LLM Tercepat untuk AI Developer"** (versi English: "The Fastest Uncensored LLM API for AI Developers").
 - Subdomain: **`ai.arsgaming.web.id`** (web) + **`api.arsgaming.web.id`** (gateway) — domain final, sudah aktif di Cloudflare.
 - Gate umur dibakukan **18+** (dari owner "17+").
 
@@ -188,9 +188,8 @@ Detail kunci:
 
 1. **Metode bayar wholesale**: buat topup saldo provider nanti, lu punya opsi apa — kartu internasional (Visa/MC), crypto (USDT), atau lainnya?
 2. **Lama simpan log pemakaian** (usulan default 30–90 hari; metadata saja).
-3. **Nama brand**: default **ARS AI** (rekomendasi builder); opsi **ARS AI DEV** kalau lu mau — tinggal pilih.
 
-**Sudah selesai:** Domain ✓ (`ai.arsgaming.web.id` + `api.arsgaming.web.id`). DD provider ✓ (NanoGPT paygo — izin resale eksplisit; aksi lanjutan: izin tertulis provider backup + konfirmasi Featherless, tidak blocking).
+**Sudah selesai:** Nama brand ✓ (**ARS AI** + tagline *"Uncensored LLM Tercepat untuk AI Developer"*). Domain ✓ (`ai.arsgaming.web.id` + `api.arsgaming.web.id`). DD provider ✓ (NanoGPT paygo — izin resale eksplisit; aksi lanjutan: izin tertulis provider backup + konfirmasi Featherless, tidak blocking).
 
 ## 15. Left to builder
 
